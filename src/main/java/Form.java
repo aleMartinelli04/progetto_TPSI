@@ -14,33 +14,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Form extends JFrame {
-    private JTextField txtField;
-    private JTextArea txtArea;
-    private JButton ricercaButton;
-    private JPanel panel1;
+    private JPanel mainPanel;
+    private JTabbedPane tabbedPane;
     private JTable table;
-    private JTabbedPane tabbedPane1;
+    private JButton searchButton;
+    private JComboBox<String> countryBox;
     private JComboBox<Integer> fromYearBox;
     private JComboBox<Integer> toYearBox;
-    private JLabel toYearLabel;
     private JPanel chartPanel;
-    private JComboBox<String> countryBox;
 
     private final CSVFile file;
 
     public Form() {
-        setContentPane(panel1);
+        setContentPane(mainPanel);
+
         setSize(600, 600);
         setLocationRelativeTo(null);
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         for (int year = 1930; year <= 2013; year++) {
             fromYearBox.addItem(year);
-            toYearBox.addItem(year);
+            toYearBox.addItem(Math.abs(year - 2013) + 1930);
         }
-
-        toYearBox.setSelectedItem(2013);
-
 
         file = new CSVFile(new File("db.csv"));
 
@@ -53,7 +49,9 @@ public class Form extends JFrame {
 
         setVisible(true);
 
-        ricercaButton.addActionListener(e -> {
+        searchButton.addActionListener(e -> {
+            setFieldsEnabled(false);
+
             Map<LocalDate, Double> temperatures = new TreeMap<>();
             file.getRows().forEach((country, list) -> {
                 if (!list.get(2).equalsIgnoreCase((String) countryBox.getSelectedItem())) {
@@ -88,14 +86,16 @@ public class Form extends JFrame {
             }
 
             DefaultTableModel model = new DefaultTableModel(new Object[]{"Date", "Temperature °C"}, 0);
-            temperatures.forEach((date, temperature) -> {
-                model.addRow(new Object[]{date, temperature});
-            });
+            temperatures.forEach((date, temperature) -> model.addRow(new Object[]{date, temperature}));
 
             table.setModel(model);
 
             chartPanel.removeAll();
             chartPanel.add(createChart(temperatures));
+
+            tabbedPane.setSelectedIndex(0);
+
+            setFieldsEnabled(true);
         });
     }
 
@@ -115,11 +115,15 @@ public class Form extends JFrame {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries series = new TimeSeries("Date");
 
-        temperatures.forEach((date, temperature) -> {
-            series.add(new Day(date.getDayOfMonth(), date.getMonthValue(), date.getYear()), temperature);
-        });
+        temperatures.forEach((date, temperature) -> series.add(new Day(date.getDayOfMonth(), date.getMonthValue(), date.getYear()), temperature));
 
         dataset.addSeries(series);
         return dataset;
+    }
+
+    private void setFieldsEnabled(boolean enabled) {
+        searchButton.setEnabled(enabled);
+        fromYearBox.setEnabled(enabled);
+        toYearBox.setEnabled(enabled);
     }
 }
