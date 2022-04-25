@@ -26,6 +26,8 @@ public class Form extends JFrame {
     private final CSVFile file;
 
     public Form() {
+        super("Progetto TPSI");
+
         setContentPane(mainPanel);
 
         setSize(600, 600);
@@ -58,7 +60,7 @@ public class Form extends JFrame {
                     return;
                 }
 
-                if ((int) fromYearBox.getSelectedItem() >= (int) toYearBox.getSelectedItem()) {
+                if ((int) fromYearBox.getSelectedItem() > (int) toYearBox.getSelectedItem()) {
                     JOptionPane.showMessageDialog(this, "Intervallo di anni invalido", "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -81,11 +83,11 @@ public class Form extends JFrame {
             });
 
             if (temperatures.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Invalid country", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Stato invalido", "Errore", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            DefaultTableModel model = new DefaultTableModel(new Object[]{"Date", "Temperature °C"}, 0);
+            DefaultTableModel model = new DefaultTableModel(new Object[]{"Data", "Temperatura °C"}, 0);
             temperatures.forEach((date, temperature) -> model.addRow(new Object[]{date, temperature}));
 
             table.setModel(model);
@@ -102,9 +104,9 @@ public class Form extends JFrame {
     private ChartPanel createChart(Map<LocalDate, Double> temperatures) {
         XYDataset dataset = createDataset(temperatures);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Temperatures",
-                "Date",
-                "Temperature",
+                "",
+                "Data",
+                "Temperatura",
                 dataset
         );
 
@@ -113,7 +115,7 @@ public class Form extends JFrame {
 
     private XYDataset createDataset(Map<LocalDate, Double> temperatures) {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
-        TimeSeries series = new TimeSeries("Date");
+        TimeSeries series = new TimeSeries("Data");
 
         temperatures.forEach((date, temperature) -> series.add(new Day(date.getDayOfMonth(), date.getMonthValue(), date.getYear()), temperature));
 
