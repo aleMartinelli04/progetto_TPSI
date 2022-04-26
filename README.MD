@@ -18,6 +18,7 @@ Oltre alla tabella, si può visualizzare anche un grafico.
 Il dataset che abbiamo preso è __[questo](https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data)__.
 Abbiamo tolto alcune informazioni superflue per il nostro progetto ed il dataset 
 risultante è il seguente:
+
 <img src="docs/dataset.png" alt="dataset">
 
 ### Strumenti
