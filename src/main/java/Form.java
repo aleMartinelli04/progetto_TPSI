@@ -135,7 +135,7 @@ public class Form extends JFrame {
 
     /**
      * Blocca o sblocca i campi di input
-     * @param enabled
+     * @param enabled true per sbloccarli e false per bloccarli
      */
     private void setFieldsEnabled(boolean enabled) {
         searchButton.setEnabled(enabled);
