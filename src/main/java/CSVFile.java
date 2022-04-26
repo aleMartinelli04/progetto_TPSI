@@ -10,6 +10,10 @@ import java.util.TreeMap;
 public class CSVFile {
     private final Map<String, List<String>> rows;
 
+    /**
+     * Legge il file csv e lo trasforma in una mappa contenente la riga e la riga divisa
+     * @param file Il file .csv da leggere
+     */
     public CSVFile(File file) {
         this.rows = new TreeMap<>();
 

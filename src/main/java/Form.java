@@ -101,6 +101,11 @@ public class Form extends JFrame {
         });
     }
 
+    /**
+     * Crea il grafico
+     * @param temperatures Mappa contenente data e temperatura rilevata in quella data
+     * @return Un pannello contenente il grafico
+     */
     private ChartPanel createChart(Map<LocalDate, Double> temperatures) {
         XYDataset dataset = createDataset(temperatures);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
@@ -113,6 +118,11 @@ public class Form extends JFrame {
         return new ChartPanel(chart);
     }
 
+    /**
+     * Crea il dataset
+     * @param temperatures Mappa contenente data e temperatura rilevata in quella data
+     * @return Il dataset
+     */
     private XYDataset createDataset(Map<LocalDate, Double> temperatures) {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries series = new TimeSeries("Data");
@@ -123,6 +133,10 @@ public class Form extends JFrame {
         return dataset;
     }
 
+    /**
+     * Blocca o sblocca i campi di input
+     * @param enabled
+     */
     private void setFieldsEnabled(boolean enabled) {
         searchButton.setEnabled(enabled);
         fromYearBox.setEnabled(enabled);
