@@ -23,5 +23,5 @@ risultante è il seguente:
 
 ### Strumenti
 * IntelliJ Idea
-* kaggle.com (per recuperare il dataset)
-* github.com (per condividere il progetto tra i partecipanti)
+* [kaggle.com](https://kaggle.com) (per recuperare il dataset)
+* [github.com](https://github.com) (per condividere il progetto tra i partecipanti)
