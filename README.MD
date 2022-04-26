@@ -23,5 +23,6 @@ risultante è il seguente:
 
 ### Strumenti
 * IntelliJ Idea
+* jFreeChart v1.5.3 (per realizzare i grafici)
 * [kaggle.com](https://kaggle.com) (per recuperare il dataset)
 * [github.com](https://github.com) (per condividere il progetto tra i partecipanti)
