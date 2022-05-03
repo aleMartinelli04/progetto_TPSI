@@ -55,13 +55,15 @@ public class Form extends JFrame {
             setFieldsEnabled(false);
 
             Map<LocalDate, Double> temperatures = new TreeMap<>();
+
+            if ((int) fromYearBox.getSelectedItem() > (int) toYearBox.getSelectedItem()) {
+                JOptionPane.showMessageDialog(this, "Intervallo di anni invalido", "Errore", JOptionPane.ERROR_MESSAGE);
+                setFieldsEnabled(true);
+                return;
+            }
+
             file.getRows().forEach((country, list) -> {
                 if (!list.get(2).equalsIgnoreCase((String) countryBox.getSelectedItem())) {
-                    return;
-                }
-
-                if ((int) fromYearBox.getSelectedItem() > (int) toYearBox.getSelectedItem()) {
-                    JOptionPane.showMessageDialog(this, "Intervallo di anni invalido", "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
